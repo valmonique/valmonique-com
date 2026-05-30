@@ -708,77 +708,107 @@
     }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; }
 
-    /* ─── MUSIC PLAYER ──────────────────────────────────────── */
-    .music-fab {
+    /* ─── Y2K MP3 WIDGET ────────────────────────────────────── */
+    .mp3-widget {
       position: fixed;
-      bottom: 28px; right: 24px;
+      bottom: 24px; right: 22px;
       z-index: 250;
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      background: rgba(204,30,160,0.82);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: #fff;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(204,30,160,0.45);
-      transition: transform 0.22s, box-shadow 0.22s;
+      width: 172px;
+      background: #080608;
+      border: 1px solid #2a142a;
+      border-radius: 7px;
+      padding: 9px 11px 8px;
+      box-shadow:
+        0 0 0 1px #180c18,
+        0 6px 28px rgba(0,0,0,0.80);
+      overflow: hidden;
+      pointer-events: none; /* purely decorative — no interaction */
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
-    .music-fab:hover {
-      transform: scale(1.12);
-      box-shadow: 0 8px 28px rgba(204,30,160,0.65);
+    /* scanline texture */
+    .mp3-widget::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 2px,
+        rgba(0,0,0,0.10) 2px, rgba(0,0,0,0.10) 3px
+      );
+      pointer-events: none; border-radius: 7px;
     }
-    .music-fab i { font-size: 16px; }
+    .mp3-widget.visible { opacity: 1; }
 
-    /* Animated bars (visible when playing) */
-    .music-bars {
-      display: none;
-      gap: 3px;
-      align-items: flex-end;
-      height: 18px;
+    /* "NOW PLAYING" label + blinking dot */
+    .mp3-label {
+      display: flex; align-items: center; gap: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 7px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--magenta);
+      margin-bottom: 6px;
     }
-    .music-bars span {
-      width: 3px; border-radius: 2px;
-      background: #fff;
-      animation: bar-bounce 0.9s ease-in-out infinite;
+    .mp3-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--magenta);
+      animation: dot-blink 1.2s ease-in-out infinite;
+      flex-shrink: 0;
     }
-    .music-bars span:nth-child(1) { height: 8px;  animation-delay: 0s; }
-    .music-bars span:nth-child(2) { height: 16px; animation-delay: 0.18s; }
-    .music-bars span:nth-child(3) { height: 10px; animation-delay: 0.36s; }
-    .music-bars span:nth-child(4) { height: 14px; animation-delay: 0.12s; }
-    @keyframes bar-bounce {
-      0%,100% { transform: scaleY(0.35); }
+    @keyframes dot-blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.15; }
+    }
+    .mp3-widget.playing .mp3-dot { animation: none; opacity: 1; }
+
+    /* Song name — scrolling marquee */
+    .mp3-track-wrap {
+      overflow: hidden; white-space: nowrap;
+      margin-bottom: 3px;
+    }
+    .mp3-track {
+      display: inline-block;
+      font-family: 'Courier New', monospace;
+      font-size: 11px; color: rgba(255,255,255,0.88);
+      letter-spacing: 0.2px;
+    }
+    .mp3-widget.playing .mp3-track {
+      animation: mp3-scroll 8s ease-in-out infinite;
+    }
+    @keyframes mp3-scroll {
+      0%,18%  { transform: translateX(0); }
+      78%,95% { transform: translateX(-42%); }
+      100%    { transform: translateX(0); }
+    }
+
+    /* Artist name */
+    .mp3-artist {
+      font-family: 'Courier New', monospace;
+      font-size: 9px; color: rgba(255,255,255,0.38);
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+
+    /* EQ bars */
+    .mp3-eq {
+      display: flex; align-items: flex-end; gap: 2px; height: 10px;
+    }
+    .mp3-eq span {
+      width: 3px; border-radius: 1px;
+      background: var(--magenta);
+      height: 3px; opacity: 0.30;
+    }
+    .mp3-widget.playing .mp3-eq span {
+      opacity: 1;
+      animation: eq-bar 0.85s ease-in-out infinite;
+    }
+    .mp3-widget.playing .mp3-eq span:nth-child(1){ height:5px;  animation-delay:0s;    }
+    .mp3-widget.playing .mp3-eq span:nth-child(2){ height:10px; animation-delay:0.17s; }
+    .mp3-widget.playing .mp3-eq span:nth-child(3){ height:6px;  animation-delay:0.34s; }
+    .mp3-widget.playing .mp3-eq span:nth-child(4){ height:9px;  animation-delay:0.09s; }
+    .mp3-widget.playing .mp3-eq span:nth-child(5){ height:4px;  animation-delay:0.26s; }
+    @keyframes eq-bar {
+      0%,100% { transform: scaleY(0.30); }
       50%      { transform: scaleY(1); }
     }
-
-    .music-fab.playing {
-      box-shadow: 0 4px 20px rgba(204,30,160,0.45), 0 0 0 6px rgba(204,30,160,0.18);
-      animation: fab-pulse 2.5s ease-in-out infinite;
-    }
-    @keyframes fab-pulse {
-      0%,100% { box-shadow: 0 4px 20px rgba(204,30,160,0.45), 0 0 0 6px rgba(204,30,160,0.18); }
-      50%      { box-shadow: 0 4px 24px rgba(204,30,160,0.65), 0 0 0 10px rgba(204,30,160,0.08); }
-    }
-    .music-fab.playing i        { display: none; }
-    .music-fab.playing .music-bars { display: flex; }
-
-    /* Tooltip */
-    .music-fab::before {
-      content: 'Escuchar Quémame';
-      position: absolute;
-      right: 58px;
-      background: rgba(10,5,25,0.88);
-      color: rgba(255,255,255,0.85);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px; font-weight: 600;
-      white-space: nowrap;
-      padding: 6px 12px; border-radius: 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.2s;
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-    .music-fab:hover::before { opacity: 1; }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 860px) {
@@ -1187,13 +1217,20 @@
   <!-- Audio de fondo -->
   <audio id="bg-music" src="assets/audio/quemame.mp3" loop preload="none"></audio>
 
-  <!-- Botón flotante de música -->
-  <button id="music-btn" class="music-fab" onclick="toggleMusic()" aria-label="Reproducir Quémame de fondo">
-    <i class="fas fa-music"></i>
-    <span class="music-bars">
-      <span></span><span></span><span></span><span></span>
-    </span>
-  </button>
+  <!-- Y2K MP3 player widget (solo visual, sin controles) -->
+  <div id="mp3-widget" class="mp3-widget" aria-hidden="true">
+    <div class="mp3-label">
+      <span class="mp3-dot"></span>
+      NOW PLAYING
+    </div>
+    <div class="mp3-track-wrap">
+      <span class="mp3-track">quémame.mp3&nbsp;&nbsp;&nbsp;&nbsp;quémame.mp3&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+    <div class="mp3-artist">Val Monique</div>
+    <div class="mp3-eq">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
 
   <script>
     /* ── Scroll reveal ──────────────────────────────────── */
@@ -1261,22 +1298,26 @@
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeIg(); });
 
-    /* ── Música de fondo ────────────────────────────────── */
-    const bgMusic = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    bgMusic.volume = 0.20;
+    /* ── Y2K MP3 player — arranca al primer toque ──────── */
+    const bgMusic  = document.getElementById('bg-music');
+    const mp3Widget = document.getElementById('mp3-widget');
+    bgMusic.volume = 0.07;
 
-    function toggleMusic() {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        musicBtn.classList.add('playing');
-        musicBtn.setAttribute('aria-label', 'Pausar música');
-      } else {
-        bgMusic.pause();
-        musicBtn.classList.remove('playing');
-        musicBtn.setAttribute('aria-label', 'Reproducir Quémame de fondo');
-      }
+    function startAudio() {
+      bgMusic.play().then(() => {
+        mp3Widget.classList.add('visible', 'playing');
+      }).catch(() => {});
     }
+
+    /* Intenta reproducir al primer gesto del usuario */
+    ['click','scroll','touchstart','keydown'].forEach(evt =>
+      document.addEventListener(evt, function h() {
+        startAudio();
+        ['click','scroll','touchstart','keydown'].forEach(e =>
+          document.removeEventListener(e, h)
+        );
+      }, { once: true })
+    );
   </script>
 
 </body>
