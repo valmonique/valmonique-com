@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Val Monique — Quémame</title>
+  <meta name="description" content="Quémame, el sencillo debut de Val Monique. Latin Crossover / Alt Latino. Escúchalo ahora en todas las plataformas.">
+  <link rel="icon" href="assets/images/logo.png" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <style>
+    /* ─── BRAND PALETTE ──────────────────────────────────── */
+    :root {
+      /* Paleta Universo CTE */
+      --terracotta:  #D07248;
+      --deep-pink:   #C02850;
+      --dusty-rose:  #B87885;
+      --olive:       #4A5228;
+      --teal:        #386070;
+      --lavender:    #8A6898;
+
+      /* Colores Ropa Val — micro-acentos */
+      --cherry:      #D81060;
+      --site-black:  #06040f;
+      --site-white:  #F8F4F5;
+
+      /* Colores Complementarios — Quémame */
+      --magenta:     #CC1EA0;
+      --royal-blue:  #3848D8;
+
+      /* Gradientes derivados */
+      --grad-universe: linear-gradient(130deg, var(--terracotta) 0%, var(--deep-pink) 52%, var(--lavender) 100%);
+      --grad-quemame:  linear-gradient(135deg, var(--magenta), var(--royal-blue));
+    }
+
+    /* ─── RESET ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #06040f;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal, .reveal-l, .reveal-r {
+      opacity: 0;
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal   { transform: translateY(36px); }
+    .reveal-l { transform: translateX(-40px); }
+    .reveal-r { transform: translateX(40px); }
+    .reveal.in, .reveal-l.in, .reveal-r.in {
+      opacity: 1;
+      transform: translate(0);
+    }
+    .d1 { transition-delay: 0.10s; }
+    .d2 { transition-delay: 0.20s; }
+    .d3 { transition-delay: 0.30s; }
+    .d4 { transition-delay: 0.40s; }
+    .d5 { transition-delay: 0.50s; }
+
+    /* ─── NAVIGATION ─────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      transition: background 0.35s, backdrop-filter 0.35s, border-color 0.35s;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.solid {
+      background: rgba(4, 2, 18, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      height: 44px; width: 44px;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: brightness(1.25);
+      flex-shrink: 0;
+    }
+
+    .nav-links { display: flex; gap: 4px; }
+    .nav-link {
+      color: rgba(255,255,255,0.55);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 22px;
+      border: 1px solid transparent;
+      transition: all 0.20s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.09); }
+    .nav-link.active {
+      color: #fff;
+      background: rgba(204,30,160,0.22);
+      border-color: rgba(204,30,160,0.52);
+    }
+
+    /* ─── SHARED TYPOGRAPHY ──────────────────────────────── */
+    .eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 10px;
+    }
+    .section-heading {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(34px, 8vw, 56px);
+      line-height: 1.1;
+      background: var(--grad-universe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 36px;
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      width: 1px; height: 64px;
+      background: linear-gradient(to bottom, transparent, rgba(204,30,160,0.45), transparent);
+      margin: 0 auto;
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 14px 26px;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.24s; white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--grad-quemame);
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(204,30,160,0.38);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(204,30,160,0.58); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.11);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.32);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.20); transform: translateY(-3px); }
+
+    /* ─── SOCIAL ICONS ───────────────────────────────────── */
+    .social-row { display: flex; gap: 13px; }
+    .social-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.13);
+      color: #fff; font-size: 17px;
+      text-decoration: none;
+      transition: all 0.22s;
+    }
+    .social-icon:hover {
+      background: rgba(255,255,255,0.20);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.30);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       § HERO
+    ═══════════════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 88px 24px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -2;
+      background: url('assets/images/background.jpg') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(4,2,18,0.28) 0%,
+        rgba(4,2,18,0.10) 35%,
+        rgba(4,2,18,0.55) 80%,
+        #06040f 100%
+      );
+    }
+
+    .cover-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .cover-wrap::before {
+      content: '';
+      position: absolute; inset: -22px;
+      border-radius: 32px;
+      background: radial-gradient(ellipse, rgba(204,30,160,0.42) 0%, rgba(56,72,216,0.28) 52%, transparent 72%);
+      filter: blur(24px);
+      z-index: -1;
+      animation: glow 4s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100% { opacity: 0.65; transform: scale(1); }
+      50%      { opacity: 1;    transform: scale(1.10); }
+    }
+    .cover-art {
+      width: min(320px, 80vw);
+      height: min(320px, 80vw);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 28px 72px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.07);
+      animation: float 4.5s ease-in-out infinite;
+      display: block;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+
+    .stream-headline {
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 800;
+      text-align: center;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.9);
+      margin-bottom: 18px;
+    }
+
+    .platforms {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 9px;
+      margin-bottom: 22px;
+    }
+    .platform-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.11);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px; padding: 8px 14px;
+      font-size: 12px; font-weight: 700;
+      color: #fff; text-decoration: none;
+      transition: all 0.20s;
+    }
+    .platform-pill:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .pi-sp { color: #1DB954; }
+    .pi-ap { color: #fc3c44; }
+    .pi-am { color: #00a8e1; }
+    .pi-yt { color: #FF0000; }
+
+    .cta-row {
+      display: flex; gap: 12px;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      color: rgba(255,255,255,0.38);
+      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+      animation: nudge 2s ease-in-out infinite;
+    }
+    @keyframes nudge {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       § GALLERY
+    ═══════════════════════════════════════════════════════ */
+    #galeria {
+      background: #06040f;
+      padding-bottom: 80px;
+    }
+    .gallery-header {
+      padding: 0 28px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .gi {
+      overflow: hidden;
+      border-radius: 12px;
+      background: #100825;
+    }
+    .gi img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.55s ease;
+    }
+    .gi:hover img { transform: scale(1.05); }
+
+    /* Desktop: 2-up top, 3-up bottom */
+    .gi-1 { grid-column: 1 / 7;  aspect-ratio: 3/4; }
+    .gi-2 { grid-column: 7 / 13; aspect-ratio: 3/4; }
+    .gi-3 { grid-column: 1 / 5;  aspect-ratio: 3/4; }
+    .gi-4 { grid-column: 5 / 9;  aspect-ratio: 3/4; }
+    .gi-5 { grid-column: 9 / 13; aspect-ratio: 3/4; }
+
+    /* ═══════════════════════════════════════════════════════
+       § BIO
+    ═══════════════════════════════════════════════════════ */
+    #bio {
+      padding: 90px 28px 90px;
+      background: linear-gradient(180deg, #06040f 0%, #0d0620 48%, #06040f 100%);
+    }
+    .bio-layout {
+      max-width: 960px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: start;
+    }
+    .bio-sticky {
+      position: sticky;
+      top: 90px;
+    }
+    .bio-portrait {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 28px 72px rgba(0,0,0,0.60);
+      display: block;
+    }
+    .bio-body {
+      font-size: 15.5px; line-height: 1.90;
+      color: rgba(255,255,255,0.80);
+    }
+    .bio-body p + p { margin-top: 18px; }
+    .bio-body strong { color: #fff; font-weight: 700; }
+    .bio-body em { color: rgba(255,200,100,0.90); font-style: italic; }
+
+    /* ═══════════════════════════════════════════════════════
+       § QUÉMAME (la canción)
+    ═══════════════════════════════════════════════════════ */
+    #musica {
+      padding: 90px 28px 90px;
+      background: #06040f;
+    }
+    .musica-inner { max-width: 760px; margin: 0 auto; }
+
+    .meta-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 28px 32px;
+      margin-bottom: 36px;
+    }
+    .meta-card dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 22px; }
+    .meta-card dt {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--terracotta);
+      align-self: baseline; padding-top: 2px;
+    }
+    .meta-card dd { font-size: 14px; color: rgba(255,255,255,0.85); }
+
+    .about-body {
+      font-size: 15px; line-height: 1.85;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 36px;
+    }
+    .sub-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--terracotta);
+      margin: 36px 0 16px;
+    }
+    .quote-card {
+      margin: 16px 0; padding: 22px 26px;
+      background: rgba(216,16,96,0.07);
+      border-left: 3px solid rgba(216,16,96,0.60);
+      border-radius: 0 14px 14px 0;
+    }
+    .quote-card p {
+      font-size: 14.5px; line-height: 1.80;
+      color: rgba(255,255,255,0.88);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       § MI UNIVERSO MUSICAL
+    ═══════════════════════════════════════════════════════ */
+    #proceso {
+      padding: 90px 28px 90px;
+      background: linear-gradient(180deg, #06040f 0%, #100828 50%, #06040f 100%);
+    }
+    .proceso-inner { max-width: 680px; margin: 0 auto; }
+
+    .cascade-list {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 44px;
+    }
+    .cascade-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+    }
+    .cascade-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cascade-song {
+      font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px;
+    }
+    .cascade-genre {
+      font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.3px;
+    }
+    .cascade-status {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px;
+    }
+    .status-live {
+      background: rgba(204,30,160,0.20);
+      color: var(--magenta);
+      border: 1px solid rgba(204,30,160,0.40);
+    }
+    .status-soon {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.40);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    /* Quote hero — more impactful on mobile */
+    .quote-hero {
+      margin: 20px 0; padding: 28px 24px 26px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .quote-hero-mark {
+      font-size: 48px; line-height: 1;
+      color: var(--magenta); opacity: 0.45;
+      margin-bottom: 10px;
+      font-family: Georgia, serif;
+      display: block;
+    }
+    .quote-hero p {
+      font-size: 16px; line-height: 1.78;
+      color: rgba(255,255,255,0.88);
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      #proceso { padding-left: 18px; padding-right: 18px; }
+      .quote-hero p { font-size: 15px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       § ENTREVISTAS
+    ═══════════════════════════════════════════════════════ */
+    #entrevistas {
+      padding: 90px 28px 90px;
+      background: linear-gradient(180deg, #06040f 0%, #0e0522 50%, #06040f 100%);
+    }
+    .entrevistas-inner { max-width: 960px; margin: 0 auto; }
+
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .interview-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; overflow: hidden;
+      text-decoration: none; color: #fff;
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .interview-card.linked { cursor: pointer; }
+    .interview-card.linked:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-5px);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.40);
+    }
+    .interview-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a0830, #2a0d45);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .interview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .play-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.32);
+    }
+    .play-overlay i { font-size: 38px; color: rgba(255,255,255,0.80); }
+    .coming-badge {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--magenta); color: #fff;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px;
+    }
+    .interview-info { padding: 16px 18px 20px; }
+    .interview-source {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 6px;
+    }
+    .interview-title { font-size: 14px; font-weight: 600; line-height: 1.5; }
+    .interview-date { font-size: 11px; color: rgba(255,255,255,0.30); margin-top: 8px; }
+
+    .press-note {
+      margin-top: 30px; text-align: center;
+      font-size: 12px; color: rgba(255,255,255,0.28);
+      font-style: italic; line-height: 1.7;
+    }
+    .press-note a {
+      color: var(--terracotta);
+      text-decoration: none; font-style: normal; font-weight: 600;
+    }
+    .press-note a:hover { opacity: 0.80; }
+
+    /* ═══════════════════════════════════════════════════════
+       § PRÓXIMAMENTE
+    ═══════════════════════════════════════════════════════ */
+    #proyectos {
+      padding: 90px 28px 90px;
+      background: #06040f;
+    }
+    .proyectos-inner { max-width: 760px; margin: 0 auto; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .project-card {
+      position: relative;
+      border-radius: 18px; overflow: hidden;
+      aspect-ratio: 1;
+      display: flex; align-items: flex-end;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: #0e0820;
+    }
+    .project-card-bg {
+      position: absolute; inset: 0;
+      background: url('assets/images/cover.jpg') center/cover;
+      opacity: 0.15; filter: blur(3px);
+      transition: opacity 0.4s;
+    }
+    .project-card:hover .project-card-bg { opacity: 0.25; }
+    .project-card-info { position: relative; z-index: 1; }
+    .proj-badge {
+      display: inline-block;
+      background: var(--deep-pink); color: #fff;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .proj-name {
+      font-family: 'Pacifico', cursive;
+      font-size: 26px; color: #fff;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.80);
+      line-height: 1.1; margin-bottom: 5px;
+    }
+    .proj-sub { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+    /* ═══════════════════════════════════════════════════════
+       § FOOTER
+    ═══════════════════════════════════════════════════════ */
+    footer {
+      padding: 52px 24px 44px;
+      background: rgba(4,2,18,0.98);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 22px;
+    }
+    .footer-logo {
+      height: 58px; width: 58px;
+      object-fit: contain;
+      mix-blend-mode: screen; filter: brightness(1.2); opacity: 0.80;
+    }
+    .footer-contact {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.42); font-size: 12px;
+      font-weight: 600; letter-spacing: 0.5px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 30px; padding: 9px 20px;
+      transition: all 0.22s;
+    }
+    .footer-contact:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.38);
+      background: rgba(255,255,255,0.06);
+    }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .bio-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .bio-sticky { position: static; }
+      .bio-portrait { max-height: 400px; }
+    }
+
+    @media (max-width: 640px) {
+      /* Gallery: 2-col + last full-width */
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gi-1 { grid-column: 1 / 2; }
+      .gi-2 { grid-column: 2 / 3; }
+      .gi-3 { grid-column: 1 / 2; }
+      .gi-4 { grid-column: 2 / 3; }
+      .gi-5 { grid-column: 1 / 3; aspect-ratio: 16/9; }
+
+      #nav { padding: 10px 14px; }
+      .nav-logo { height: 38px; width: 38px; }
+      .nav-link { font-size: 10px; padding: 6px 10px; letter-spacing: 1px; }
+
+      #hero, #galeria, #bio, #musica, #proceso, #entrevistas, #proyectos {
+        padding-left: 18px; padding-right: 18px;
+      }
+      .cta-row { flex-direction: column; width: 100%; max-width: 290px; }
+      .btn { width: 100%; }
+    }
+
+    @media (max-width: 400px) {
+      .nav-links { gap: 2px; }
+      .nav-link { font-size: 9px; padding: 5px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════ -->
+  <nav id="nav">
+    <a href="#hero" aria-label="Volver al inicio">
+      <img src="assets/images/logo.png" alt="Val Monique" class="nav-logo">
+    </a>
+    <div class="nav-links">
+      <a href="#musica"      class="nav-link" data-s="musica">La canción</a>
+      <a href="#galeria"     class="nav-link" data-s="galeria">Galería</a>
+      <a href="#bio"         class="nav-link" data-s="bio">Bio</a>
+      <a href="#entrevistas" class="nav-link" data-s="entrevistas">Prensa</a>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════
+       § HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="cover-wrap">
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" aria-label="Escuchar Quémame">
+        <img src="assets/images/cover.jpg" alt="Quémame — Val Monique" class="cover-art">
+      </a>
+    </div>
+
+    <h1 class="stream-headline">Dale play ahora 🔥</h1>
+
+    <div class="platforms">
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fab fa-spotify pi-sp"></i> Spotify</a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fab fa-apple pi-ap"></i> Apple Music</a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fab fa-amazon pi-am"></i> Amazon Music</a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fab fa-youtube pi-yt"></i> YouTube Music</a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fas fa-music"></i> Deezer</a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="platform-pill"><i class="fas fa-music"></i> Tidal</a>
+    </div>
+
+    <div class="cta-row">
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="btn btn-primary">
+        <i class="fas fa-headphones"></i> Escúchala en tu plataforma
+      </a>
+      <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="btn btn-ghost">
+        ▶&nbsp; Play, play, play, play
+      </a>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Descubre</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § GALERÍA
+  ═══════════════════════════════════════ -->
+  <section id="galeria">
+    <div class="divider"></div>
+    <div class="gallery-header" style="padding-top: 60px;">
+      <p class="eyebrow reveal">Galería</p>
+      <h2 class="section-heading reveal d1">Quémame</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gi gi-1 reveal"><img src="assets/images/promo1.jpg" alt="Val Monique" loading="lazy"></div>
+      <div class="gi gi-2 reveal d1"><img src="assets/images/promo2.jpg" alt="Val Monique" loading="lazy"></div>
+      <div class="gi gi-3 reveal d2"><img src="assets/images/promo3.jpg" alt="Val Monique" loading="lazy"></div>
+      <div class="gi gi-4 reveal d3"><img src="assets/images/promo4.jpg" alt="Val Monique" loading="lazy"></div>
+      <div class="gi gi-5 reveal d4"><img src="assets/images/promo5.jpg" alt="Val Monique" loading="lazy"></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § BIO
+  ═══════════════════════════════════════ -->
+  <section id="bio">
+    <div class="divider"></div>
+    <div style="max-width: 960px; margin: 0 auto; padding-top: 60px; padding: 60px 28px 0;">
+      <p class="eyebrow reveal">Artista</p>
+      <h2 class="section-heading reveal d1">Val Monique</h2>
+    </div>
+
+    <div class="bio-layout">
+      <div class="bio-text-col">
+        <div class="bio-body">
+          <p class="reveal">Val Monique es una cantautora e intérprete panameña radicada en Ciudad de Panamá, y una de las artistas más versátiles de la escena del entretenimiento en Panamá. Con más de dos décadas de experiencia en teatro musical, presentaciones en vivo, actuación de voz y conducción, ha dedicado su carrera a construir la presencia escénica, el rango vocal y la intuición artística que hoy anclan su música original.</p>
+          <p class="reveal d1">Criada entre Panamá y Estados Unidos, y formada en ambos idiomas, Val Monique creció con un pie en la tradición latina y otro en la cultura pop americana — una dualidad que moldeó su oído y su identidad a partes iguales.</p>
+          <p class="reveal d2">Su trabajo solista es, en muchos sentidos, el ajuste de cuentas creativo que esa dualidad siempre prometía: un regreso deliberado a sus raíces latinas, explorado a través de un subgénero del Alt Latino que ella misma denomina <strong>Latin Crossover</strong>. El concepto es simple pero específico: tomar un género latino clásico y fusionarlo con algo más. Ya sea con géneros contemporáneos o nostálgicos del Y2K, su sonido es una fusión de sus amores pasados y presentes.</p>
+          <p class="reveal d3">Val Monique escribió su primera canción original en 2017. Casi una década de escritura, producción y refinamiento siguió antes de que estuviera lista para lanzar. Y eso se nota. Su música está escrita en primera persona —de manera intencional— para que los oyentes puedan habitar las letras como propias. Los temas son empoderamiento, inteligencia emocional y la claridad que sólo llega con la experiencia real. <em>Quémame</em>, <em>La Mala</em> y <em>Pon Cuidao</em> son sus sencillos debut, y el comienzo de un catálogo que lleva mucho tiempo gestándose.</p>
+        </div>
+      </div>
+      <div class="bio-sticky reveal-r">
+        <img src="assets/images/promo5.jpg" alt="Val Monique — foto de artista" class="bio-portrait">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § QUÉMAME
+  ═══════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════
+       § QUÉMAME — la canción
+  ═══════════════════════════════════════ -->
+  <section id="musica">
+    <div class="divider"></div>
+    <div class="musica-inner" style="padding-top: 60px;">
+      <p class="eyebrow reveal">Sencillo debut · 29 de mayo de 2026</p>
+      <h2 class="section-heading reveal d1">Quémame</h2>
+
+      <div class="meta-card reveal">
+        <dl>
+          <dt>Artista</dt>    <dd>Val Monique</dd>
+          <dt>Género</dt>     <dd>Latin Crossover / Alt Latino</dd>
+          <dt>Sonido</dt>     <dd>Latin Pop / R&amp;B con corriente funk</dd>
+          <dt>Idioma</dt>     <dd>Español / Spanglish</dd>
+          <dt>Ciudad</dt>     <dd>Ciudad de Panamá, Panamá</dd>
+        </dl>
+      </div>
+
+      <p class="about-body reveal">"Quémame" fusiona Latin Pop y R&amp;B con una corriente funk cálida y orgánica. Es la declaración de apertura de un catálogo construido durante casi una década: honestidad emocional, rango sonoro, y una conexión directa con quien escucha. El primer paso de un universo que apenas comienza.</p>
+
+      <div style="margin-top: 36px; text-align: center;" class="reveal">
+        <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" class="btn btn-primary">
+          <i class="fas fa-headphones"></i> Escuchar Quémame ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § MI UNIVERSO MUSICAL
+  ═══════════════════════════════════════ -->
+  <section id="proceso">
+    <div class="divider"></div>
+    <div class="proceso-inner" style="padding-top: 60px;">
+      <p class="eyebrow reveal">Mi universo musical</p>
+      <h2 class="section-heading reveal d1">Lo que me mueve</h2>
+
+      <p class="about-body reveal" style="margin-bottom: 32px;">Una canción cada mes y medio. Un género distinto cada vez. Un mismo universo. <em style="color: rgba(255,200,120,0.9);">Latin Crossover</em> no es una fórmula — es una filosofía: tomar un género latino clásico y fusionarlo con algo inesperado. Cada lanzamiento trae su propio sonido, su propia paleta, su propia historia.</p>
+
+      <!-- Release cascade -->
+      <p class="sub-label reveal">Los lanzamientos</p>
+      <div class="cascade-list reveal">
+        <div class="cascade-item">
+          <span class="cascade-dot" style="background: var(--magenta);"></span>
+          <div>
+            <p class="cascade-song">Quémame</p>
+            <p class="cascade-genre">Latin Pop + R&amp;B · funk cálido</p>
+          </div>
+          <span class="cascade-status status-live">Ya disponible</span>
+        </div>
+        <div class="cascade-item">
+          <span class="cascade-dot" style="background: var(--deep-pink);"></span>
+          <div>
+            <p class="cascade-song">La Mala</p>
+            <p class="cascade-genre">Bolero + Pop</p>
+          </div>
+          <span class="cascade-status status-soon">Próximamente</span>
+        </div>
+        <div class="cascade-item">
+          <span class="cascade-dot" style="background: var(--teal);"></span>
+          <div>
+            <p class="cascade-song">Pon Cuidao</p>
+            <p class="cascade-genre">Pop Latino + Urbano</p>
+          </div>
+          <span class="cascade-status status-soon">Próximamente</span>
+        </div>
+      </div>
+
+      <!-- General artist quotes -->
+      <p class="sub-label reveal">En sus propias palabras</p>
+
+      <div class="quote-hero reveal d1">
+        <span class="quote-hero-mark">❝</span>
+        <p>Escribo sobre lo que he vivido para que otros se sientan vistos; como cuando sientes algo muy específico y de repente te encuentras con un completo desconocido que lo entiende. En mi mente, si mi vulnerabilidad puede despertar algo en ti — valentía, claridad, un sentido más profundo de quién eres — entonces la canción hizo exactamente lo que debía hacer.</p>
+      </div>
+
+      <div class="quote-hero reveal d2">
+        <span class="quote-hero-mark">❝</span>
+        <p>He estado en escena toda mi vida, pero la composición es donde más expuesta estoy a nivel personal — y por eso me tomé mi tiempo. No iba a compartir nada hasta haber encontrado lo que hace mi sonido propio. Es como si estuviera en un proceso constante de autodescubrimiento, y mi música es donde finalmente comparto mis epifanías en voz alta. Cada canción es parte de una historia más grande. La exploración es el punto. Y créeme cuando digo: apenas he rozado la superficie de mi impulso creativo.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § ENTREVISTAS / PRENSA
+  ═══════════════════════════════════════ -->
+  <section id="entrevistas">
+    <div class="divider"></div>
+    <div class="entrevistas-inner" style="padding-top: 60px;">
+      <p class="eyebrow reveal">Prensa &amp; Medios</p>
+      <h2 class="section-heading reveal d1">En los medios</h2>
+
+      <div class="interview-grid">
+        <!-- Placeholder 1 -->
+        <div class="interview-card reveal">
+          <div class="interview-thumb">
+            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            <span class="coming-badge">Próximamente</span>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">Entrevista</p>
+            <p class="interview-title">Primera entrevista como artista solista</p>
+            <p class="interview-date">Próximamente · 2026</p>
+          </div>
+        </div>
+
+        <!-- Placeholder 2 -->
+        <div class="interview-card reveal d1">
+          <div class="interview-thumb">
+            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            <span class="coming-badge">Próximamente</span>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">Podcast</p>
+            <p class="interview-title">Hablando de Latin Crossover y el proceso creativo</p>
+            <p class="interview-date">Próximamente · 2026</p>
+          </div>
+        </div>
+
+        <!-- Placeholder 3 -->
+        <div class="interview-card reveal d2">
+          <div class="interview-thumb">
+            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            <span class="coming-badge">Próximamente</span>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">Medios digitales</p>
+            <p class="interview-title">Val Monique: casi una década para llegar aquí</p>
+            <p class="interview-date">Próximamente · 2026</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="press-note reveal">
+        Para solicitudes de prensa y materiales adicionales:<br>
+        <a href="mailto:hola@valmonique.com">hola@valmonique.com</a>
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       § PRÓXIMAMENTE
+  ═══════════════════════════════════════ -->
+  <section id="proyectos">
+    <div class="divider"></div>
+    <div class="proyectos-inner" style="padding-top: 60px;">
+      <p class="eyebrow reveal">Lo que viene</p>
+      <h2 class="section-heading reveal d1">Próximamente</h2>
+
+      <div class="projects-grid">
+        <!-- La Mala -->
+        <div class="project-card reveal" style="background: linear-gradient(135deg, #1e0810, #2a0d1a);">
+          <div class="project-card-bg" style="background-image: url('assets/images/promo1.jpg');"></div>
+          <div class="project-card-info">
+            <span class="proj-badge" style="background: var(--deep-pink);">Próximamente</span>
+            <p class="proj-name">La Mala</p>
+            <p class="proj-sub">Bolero + Pop · Val Monique</p>
+          </div>
+        </div>
+        <!-- Pon Cuidao -->
+        <div class="project-card reveal d1" style="background: linear-gradient(135deg, #080e18, #0e1520);">
+          <div class="project-card-bg" style="background-image: url('assets/images/promo3.jpg');"></div>
+          <div class="project-card-info">
+            <span class="proj-badge" style="background: var(--teal);">Próximamente</span>
+            <p class="proj-name">Pon Cuidao</p>
+            <p class="proj-sub">Pop Latino + Urbano · Val Monique</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer>
+    <img src="assets/images/logo.png" alt="Val Monique" class="footer-logo">
+
+    <div class="social-row">
+      <a href="https://www.tiktok.com/@valmonique"   target="_blank" rel="noopener" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/valm0nique" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.threads.net/@valm0nique"  target="_blank" rel="noopener" class="social-icon" aria-label="Threads"><i class="fab fa-threads"></i></a>
+      <a href="https://www.youtube.com/@ValMonique"  target="_blank" rel="noopener" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <a href="mailto:hola@valmonique.com" class="footer-contact">
+      ✉&nbsp; Contáctame
+    </a>
+
+    <p class="footer-copy">© 2026 Val Monique · Todos los derechos reservados</p>
+  </footer>
+
+
+  <script>
+    /* ── Scroll reveal ──────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.10 });
+
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r')
+      .forEach(el => revealObserver.observe(el));
+
+    /* ── Nav: solid background after hero ──────────────── */
+    const navbar = document.getElementById('nav');
+    const heroSection = document.getElementById('hero');
+
+    new IntersectionObserver(([e]) => {
+      navbar.classList.toggle('solid', !e.isIntersecting);
+    }, { threshold: 0.05 }).observe(heroSection);
+
+    /* ── Nav: highlight active section ─────────────────── */
+    const navLinks = document.querySelectorAll('.nav-link[data-s]');
+
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => l.classList.toggle('active', l.dataset.s === e.target.id));
+        }
+      });
+    }, { rootMargin: '-28% 0px -65% 0px' })
+      .observe(document.getElementById('musica'));
+
+    ['galeria','bio','proceso','entrevistas'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting)
+            navLinks.forEach(l => l.classList.toggle('active', l.dataset.s === id));
+        });
+      }, { rootMargin: '-28% 0px -65% 0px' }).observe(el);
+    });
+  </script>
+
+</body>
+</html>

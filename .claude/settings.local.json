@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server 8826)",
+      "Bash(open \"http://localhost:8826\")",
+      "Bash(sips -s format jpeg -s formatOptions 82 -Z 1000 'Val - Quemame __TRACKED_VAR__.png' --out /Users/valmonique/Developer/Valmonique.com/assets/images/promo__TRACKED_VAR__.jpg)",
+      "Bash(open *)",
+      "Bash(brew --version)",
+      "Bash(git config *)",
+      "Bash(brew install *)",
+      "Bash(gh *)"
+    ]
+  }
+}
