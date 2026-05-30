@@ -708,108 +708,34 @@
     }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; }
 
-    /* ─── Y2K MP3 WIDGET ────────────────────────────────────── */
-    .mp3-widget {
+    /* ─── Y2K MP3 TICKER ────────────────────────────────────── */
+    .mp3-ticker {
       position: fixed;
-      bottom: 24px; right: 22px;
-      z-index: 250;
-      width: 172px;
-      background: #080608;
-      border: 1px solid #2a142a;
-      border-radius: 7px;
-      padding: 9px 11px 8px;
-      box-shadow:
-        0 0 0 1px #180c18,
-        0 6px 28px rgba(0,0,0,0.80);
+      bottom: 16px; right: 0;
+      width: 180px;
       overflow: hidden;
-      pointer-events: none; /* purely decorative — no interaction */
+      z-index: 250;
+      pointer-events: none;
       opacity: 0;
-      animation: widget-appear 0.8s ease 1.5s forwards;
+      animation: ticker-fadein 0.8s ease 1.5s forwards;
     }
-    @keyframes widget-appear {
+    @keyframes ticker-fadein {
       to { opacity: 1; }
     }
-    /* scanline texture */
-    .mp3-widget::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        transparent 0px, transparent 2px,
-        rgba(0,0,0,0.10) 2px, rgba(0,0,0,0.10) 3px
-      );
-      pointer-events: none; border-radius: 7px;
-    }
-
-    /* "NOW PLAYING" label + blinking dot */
-    .mp3-label {
-      display: flex; align-items: center; gap: 5px;
-      font-family: 'Courier New', monospace;
-      font-size: 7px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--magenta);
-      margin-bottom: 6px;
-    }
-    .mp3-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--magenta);
-      animation: dot-blink 1.2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-    @keyframes dot-blink {
-      0%,100% { opacity: 1; }
-      50%      { opacity: 0.15; }
-    }
-    .mp3-widget.playing .mp3-dot { animation: none; opacity: 1; }
-
-    /* Song name — scrolling marquee */
-    .mp3-track-wrap {
-      overflow: hidden; white-space: nowrap;
-      margin-bottom: 3px;
-    }
-    .mp3-track {
+    .mp3-ticker span {
       display: inline-block;
+      white-space: nowrap;
       font-family: 'Courier New', monospace;
-      font-size: 11px; color: rgba(255,255,255,0.88);
-      letter-spacing: 0.2px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--magenta);
+      text-shadow: 0 0 7px rgba(204,30,160,0.50);
+      animation: ticker-loop 20s linear infinite;
     }
-    .mp3-widget.playing .mp3-track {
-      animation: mp3-scroll 8s ease-in-out infinite;
-    }
-    @keyframes mp3-scroll {
-      0%,18%  { transform: translateX(0); }
-      78%,95% { transform: translateX(-42%); }
-      100%    { transform: translateX(0); }
-    }
-
-    /* Artist name */
-    .mp3-artist {
-      font-family: 'Courier New', monospace;
-      font-size: 9px; color: rgba(255,255,255,0.38);
-      letter-spacing: 0.5px;
-      margin-bottom: 7px;
-    }
-
-    /* EQ bars */
-    .mp3-eq {
-      display: flex; align-items: flex-end; gap: 2px; height: 10px;
-    }
-    .mp3-eq span {
-      width: 3px; border-radius: 1px;
-      background: var(--magenta);
-      height: 3px; opacity: 0.30;
-    }
-    .mp3-widget.playing .mp3-eq span {
-      opacity: 1;
-      animation: eq-bar 0.85s ease-in-out infinite;
-    }
-    .mp3-widget.playing .mp3-eq span:nth-child(1){ height:5px;  animation-delay:0s;    }
-    .mp3-widget.playing .mp3-eq span:nth-child(2){ height:10px; animation-delay:0.17s; }
-    .mp3-widget.playing .mp3-eq span:nth-child(3){ height:6px;  animation-delay:0.34s; }
-    .mp3-widget.playing .mp3-eq span:nth-child(4){ height:9px;  animation-delay:0.09s; }
-    .mp3-widget.playing .mp3-eq span:nth-child(5){ height:4px;  animation-delay:0.26s; }
-    @keyframes eq-bar {
-      0%,100% { transform: scaleY(0.30); }
-      50%      { transform: scaleY(1); }
+    @keyframes ticker-loop {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
@@ -1219,19 +1145,9 @@
   <!-- Audio de fondo -->
   <audio id="bg-music" src="assets/audio/quemame.mp3" loop preload="none"></audio>
 
-  <!-- Y2K MP3 player widget (solo visual, sin controles) -->
-  <div id="mp3-widget" class="mp3-widget" aria-hidden="true">
-    <div class="mp3-label">
-      <span class="mp3-dot"></span>
-      NOW PLAYING
-    </div>
-    <div class="mp3-track-wrap">
-      <span class="mp3-track">quémame.mp3&nbsp;&nbsp;&nbsp;&nbsp;quémame.mp3&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    </div>
-    <div class="mp3-artist">Val Monique</div>
-    <div class="mp3-eq">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+  <!-- Y2K MP3 ticker — una línea, sin controles -->
+  <div id="mp3-ticker" class="mp3-ticker" aria-hidden="true">
+    <span>♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp;&nbsp; ♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp;&nbsp;</span>
   </div>
 
   <script>
@@ -1302,13 +1218,10 @@
 
     /* ── Y2K MP3 player — arranca al primer toque ──────── */
     const bgMusic  = document.getElementById('bg-music');
-    const mp3Widget = document.getElementById('mp3-widget');
     bgMusic.volume = 0.07;
 
     function startAudio() {
-      bgMusic.play().then(() => {
-        mp3Widget.classList.add('playing');
-      }).catch(() => {});
+      bgMusic.play().catch(() => {});
     }
 
     /* Intenta reproducir al primer gesto del usuario */
