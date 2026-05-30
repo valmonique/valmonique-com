@@ -724,7 +724,10 @@
       overflow: hidden;
       pointer-events: none; /* purely decorative — no interaction */
       opacity: 0;
-      transition: opacity 0.8s ease;
+      animation: widget-appear 0.8s ease 1.5s forwards;
+    }
+    @keyframes widget-appear {
+      to { opacity: 1; }
     }
     /* scanline texture */
     .mp3-widget::after {
@@ -737,7 +740,6 @@
       );
       pointer-events: none; border-radius: 7px;
     }
-    .mp3-widget.visible { opacity: 1; }
 
     /* "NOW PLAYING" label + blinking dot */
     .mp3-label {
@@ -1305,7 +1307,7 @@
 
     function startAudio() {
       bgMusic.play().then(() => {
-        mp3Widget.classList.add('visible', 'playing');
+        mp3Widget.classList.add('playing');
       }).catch(() => {});
     }
 
