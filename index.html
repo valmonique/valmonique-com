@@ -708,6 +708,78 @@
     }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 0.5px; }
 
+    /* ─── MUSIC PLAYER ──────────────────────────────────────── */
+    .music-fab {
+      position: fixed;
+      bottom: 28px; right: 24px;
+      z-index: 250;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: rgba(204,30,160,0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(204,30,160,0.45);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .music-fab:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 28px rgba(204,30,160,0.65);
+    }
+    .music-fab i { font-size: 16px; }
+
+    /* Animated bars (visible when playing) */
+    .music-bars {
+      display: none;
+      gap: 3px;
+      align-items: flex-end;
+      height: 18px;
+    }
+    .music-bars span {
+      width: 3px; border-radius: 2px;
+      background: #fff;
+      animation: bar-bounce 0.9s ease-in-out infinite;
+    }
+    .music-bars span:nth-child(1) { height: 8px;  animation-delay: 0s; }
+    .music-bars span:nth-child(2) { height: 16px; animation-delay: 0.18s; }
+    .music-bars span:nth-child(3) { height: 10px; animation-delay: 0.36s; }
+    .music-bars span:nth-child(4) { height: 14px; animation-delay: 0.12s; }
+    @keyframes bar-bounce {
+      0%,100% { transform: scaleY(0.35); }
+      50%      { transform: scaleY(1); }
+    }
+
+    .music-fab.playing {
+      box-shadow: 0 4px 20px rgba(204,30,160,0.45), 0 0 0 6px rgba(204,30,160,0.18);
+      animation: fab-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes fab-pulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(204,30,160,0.45), 0 0 0 6px rgba(204,30,160,0.18); }
+      50%      { box-shadow: 0 4px 24px rgba(204,30,160,0.65), 0 0 0 10px rgba(204,30,160,0.08); }
+    }
+    .music-fab.playing i        { display: none; }
+    .music-fab.playing .music-bars { display: flex; }
+
+    /* Tooltip */
+    .music-fab::before {
+      content: 'Escuchar Quémame';
+      position: absolute;
+      right: 58px;
+      background: rgba(10,5,25,0.88);
+      color: rgba(255,255,255,0.85);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600;
+      white-space: nowrap;
+      padding: 6px 12px; border-radius: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .music-fab:hover::before { opacity: 1; }
+
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 860px) {
       .bio-layout {
@@ -1112,6 +1184,17 @@
   </footer>
 
 
+  <!-- Audio de fondo -->
+  <audio id="bg-music" src="assets/audio/quemame.mp3" loop preload="none"></audio>
+
+  <!-- Botón flotante de música -->
+  <button id="music-btn" class="music-fab" onclick="toggleMusic()" aria-label="Reproducir Quémame de fondo">
+    <i class="fas fa-music"></i>
+    <span class="music-bars">
+      <span></span><span></span><span></span><span></span>
+    </span>
+  </button>
+
   <script>
     /* ── Scroll reveal ──────────────────────────────────── */
     const revealObserver = new IntersectionObserver((entries) => {
@@ -1177,6 +1260,23 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeIg(); });
+
+    /* ── Música de fondo ────────────────────────────────── */
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    bgMusic.volume = 0.20;
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.classList.add('playing');
+        musicBtn.setAttribute('aria-label', 'Pausar música');
+      } else {
+        bgMusic.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.setAttribute('aria-label', 'Reproducir Quémame de fondo');
+      }
+    }
   </script>
 
 </body>
