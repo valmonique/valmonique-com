@@ -488,7 +488,7 @@
 
     .interview-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 20px;
     }
     .interview-card {
@@ -614,6 +614,24 @@
     .press-note a:hover { opacity: 0.80; }
 
     /* ═══════════════════════════════════════════════════════
+       § PRESENTACIONES EN VIVO
+    ═══════════════════════════════════════════════════════ */
+    #presentaciones {
+      padding: 90px 28px 90px;
+      background: linear-gradient(180deg, #06040f 0%, #150a08 50%, #06040f 100%);
+    }
+    .presentaciones-inner { max-width: 760px; margin: 0 auto; }
+    .live-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      #presentaciones { padding-left: 18px; padding-right: 18px; }
+      .live-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════
        § PRÓXIMAMENTE
     ═══════════════════════════════════════════════════════ */
     #proyectos {
@@ -713,7 +731,7 @@
       .nav-logo { height: 38px; width: 38px; }
       .nav-link { font-size: 10px; padding: 6px 10px; letter-spacing: 1px; }
 
-      #hero, #galeria, #bio, #musica, #proceso, #entrevistas, #proyectos {
+      #hero, #galeria, #bio, #musica, #proceso, #entrevistas, #presentaciones, #proyectos {
         padding-left: 18px; padding-right: 18px;
       }
       .cta-row { flex-direction: column; width: 100%; max-width: 290px; }
@@ -928,7 +946,7 @@
       <div class="interview-grid">
 
         <!-- 1. Tántalo's Check In — Instagram Reel -->
-        <div class="interview-card ig-card reveal" onclick="document.getElementById('ig-modal').classList.add('open')">
+        <div class="interview-card ig-card reveal" onclick="openIg('https://www.instagram.com/reel/DXSjLieAfWW/embed/')">
           <div class="interview-thumb">
             <div class="ig-bg"></div>
             <div class="ig-center">
@@ -953,7 +971,7 @@
           <div class="interview-info">
             <p class="interview-source">Podcast · Esto No Debería Estar Aquí</p>
             <p class="interview-title">Episodio especial — La sabiduría de Val Monique</p>
-            <p class="interview-date">Mayo 2026</p>
+            <p class="interview-date">2026</p>
           </div>
         </div>
 
@@ -966,20 +984,7 @@
           <div class="interview-info">
             <p class="interview-source">Podcast · Buena Vaina</p>
             <p class="interview-title">¡Viva el drama! con Val Monique</p>
-            <p class="interview-date">Mayo 2026</p>
-          </div>
-        </div>
-
-        <!-- 4. Cover en Vivo "Mafiosa" — YouTube -->
-        <div class="interview-card reveal d3">
-          <div class="interview-thumb yt-player" data-yt="iAW7vOnHLaA">
-            <img src="https://img.youtube.com/vi/iAW7vOnHLaA/hqdefault.jpg" alt="Val Monique canta Mafiosa en vivo" loading="lazy">
-            <div class="yt-play-btn"><i class="fas fa-play"></i></div>
-          </div>
-          <div class="interview-info">
-            <p class="interview-source">Presentación en vivo · KWC 2023</p>
-            <p class="interview-title">Cover — "Mafiosa" de Kathy Peluso</p>
-            <p class="interview-date">2023</p>
+            <p class="interview-date">2026</p>
           </div>
         </div>
 
@@ -992,17 +997,62 @@
     </div>
   </section>
 
-  <!-- Instagram modal -->
-  <div id="ig-modal" class="ig-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <!-- ══════════════════════════════════════
+       § PRESENTACIONES EN VIVO
+  ═══════════════════════════════════════ -->
+  <section id="presentaciones">
+    <div class="divider"></div>
+    <div class="presentaciones-inner" style="padding-top: 60px;">
+      <p class="eyebrow reveal">En el escenario</p>
+      <h2 class="section-heading reveal d1">Presentaciones en vivo</h2>
+
+      <div class="live-grid">
+
+        <!-- Revolution Fest — Instagram Reel -->
+        <div class="interview-card ig-card reveal" onclick="openIg('https://www.instagram.com/reel/DXh9PjCj-td/embed/')">
+          <div class="interview-thumb">
+            <div class="ig-bg"></div>
+            <div class="ig-center">
+              <i class="fab fa-instagram"></i>
+              <span>@valm0nique</span>
+            </div>
+            <div class="ig-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">Instagram · Revolution Fest Panamá</p>
+            <p class="interview-title">Entre Nos ft. Val Monique — en tarima en el Revolution Fest</p>
+            <p class="interview-date">24 de abril, 2026</p>
+          </div>
+        </div>
+
+        <!-- KWC 2023 — Cover Mafiosa — YouTube -->
+        <div class="interview-card reveal d1">
+          <div class="interview-thumb yt-player" data-yt="iAW7vOnHLaA">
+            <img src="https://img.youtube.com/vi/iAW7vOnHLaA/hqdefault.jpg" alt="Val Monique canta Mafiosa en vivo — KWC 2023" loading="lazy">
+            <div class="yt-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">YouTube · KWC — Karaoke World Championships</p>
+            <p class="interview-title">Cover en vivo — "Mafiosa" de Kathy Peluso</p>
+            <p class="interview-date">2023</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram modal (dinámico — sirve para todos los reels) -->
+  <div id="ig-modal" class="ig-modal" onclick="if(event.target===this)closeIg()">
     <div class="ig-modal-inner">
-      <button class="ig-modal-close" onclick="document.getElementById('ig-modal').classList.remove('open')" aria-label="Cerrar">✕</button>
+      <button class="ig-modal-close" onclick="closeIg()" aria-label="Cerrar">✕</button>
       <iframe
-        src="https://www.instagram.com/reel/DXSjLieAfWW/embed/"
+        id="ig-iframe"
+        src=""
         frameborder="0"
         allowtransparency="true"
         allow="encrypted-media"
-        scrolling="no"
-        loading="lazy">
+        scrolling="no">
       </iframe>
     </div>
   </div>
@@ -1091,7 +1141,7 @@
     }, { rootMargin: '-28% 0px -65% 0px' })
       .observe(document.getElementById('musica'));
 
-    ['galeria','bio','proceso','entrevistas'].forEach(id => {
+    ['galeria','bio','proceso','entrevistas','presentaciones'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
       new IntersectionObserver((entries) => {
@@ -1115,10 +1165,18 @@
       });
     });
 
-    /* ── Escape closes Instagram modal ─────────────────── */
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') document.getElementById('ig-modal').classList.remove('open');
-    });
+    /* ── Instagram modal (dinámico) ─────────────────────── */
+    function openIg(url) {
+      document.getElementById('ig-iframe').src = url;
+      document.getElementById('ig-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeIg() {
+      document.getElementById('ig-modal').classList.remove('open');
+      document.getElementById('ig-iframe').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeIg(); });
   </script>
 
 </body>
