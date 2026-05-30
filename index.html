@@ -488,54 +488,122 @@
 
     .interview-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
     .interview-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px; overflow: hidden;
-      text-decoration: none; color: #fff;
-      transition: all 0.25s;
-      cursor: default;
+      color: #fff; transition: all 0.25s;
     }
-    .interview-card.linked { cursor: pointer; }
-    .interview-card.linked:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-5px);
+    .interview-card:hover {
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-4px);
       box-shadow: 0 18px 48px rgba(0,0,0,0.40);
     }
+
+    /* Video thumbnail area */
     .interview-thumb {
       width: 100%; aspect-ratio: 16/9;
       background: linear-gradient(135deg, #1a0830, #2a0d45);
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
-    .interview-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .play-overlay {
-      position: absolute; inset: 0;
+    .interview-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .interview-thumb iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
+
+    /* YouTube click-to-play */
+    .yt-player { cursor: pointer; }
+    .yt-play-btn {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(0,0,0,0.65);
+      border: 2px solid rgba(255,255,255,0.75);
       display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.32);
+      transition: all 0.22s; pointer-events: none;
     }
-    .play-overlay i { font-size: 38px; color: rgba(255,255,255,0.80); }
-    .coming-badge {
-      position: absolute; top: 10px; right: 10px;
-      background: var(--magenta); color: #fff;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 20px;
+    .yt-play-btn i { color: #fff; font-size: 18px; margin-left: 3px; }
+    .yt-player:hover .yt-play-btn {
+      background: var(--magenta);
+      border-color: var(--magenta);
+      transform: translate(-50%, -50%) scale(1.12);
     }
-    .interview-info { padding: 16px 18px 20px; }
+
+    /* Instagram card */
+    .ig-card { cursor: pointer; }
+    .ig-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      opacity: 0.55;
+    }
+    .ig-center {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.85);
+    }
+    .ig-center i { font-size: 32px; }
+    .ig-center span { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .ig-play-btn {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(0,0,0,0.50);
+      border: 2px solid rgba(255,255,255,0.75);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.22s;
+    }
+    .ig-play-btn i { color: #fff; font-size: 18px; margin-left: 3px; }
+    .ig-card:hover .ig-play-btn {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d);
+      border-color: transparent;
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+
+    .interview-info { padding: 14px 16px 18px; }
     .interview-source {
       font-size: 10px; font-weight: 700;
       letter-spacing: 1.5px; text-transform: uppercase;
       color: var(--terracotta); margin-bottom: 6px;
     }
-    .interview-title { font-size: 14px; font-weight: 600; line-height: 1.5; }
-    .interview-date { font-size: 11px; color: rgba(255,255,255,0.30); margin-top: 8px; }
+    .interview-title { font-size: 13px; font-weight: 600; line-height: 1.5; color: rgba(255,255,255,0.90); }
+    .interview-date { font-size: 11px; color: rgba(255,255,255,0.30); margin-top: 6px; }
+
+    /* Instagram modal */
+    .ig-modal {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .ig-modal.open { display: flex; }
+    .ig-modal-inner {
+      position: relative; width: 100%; max-width: 380px;
+    }
+    .ig-modal iframe {
+      width: 100%; min-height: 500px; border-radius: 14px; border: none;
+      background: #000;
+    }
+    .ig-modal-close {
+      position: absolute; top: -42px; right: 0;
+      background: rgba(255,255,255,0.12); border: none;
+      color: #fff; font-size: 18px; width: 36px; height: 36px;
+      border-radius: 50%; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .ig-modal-close:hover { background: rgba(255,255,255,0.25); }
 
     .press-note {
-      margin-top: 30px; text-align: center;
+      margin-top: 32px; text-align: center;
       font-size: 12px; color: rgba(255,255,255,0.28);
       font-style: italic; line-height: 1.7;
     }
@@ -650,6 +718,7 @@
       }
       .cta-row { flex-direction: column; width: 100%; max-width: 290px; }
       .btn { width: 100%; }
+      .interview-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 400px) {
@@ -857,44 +926,63 @@
       <h2 class="section-heading reveal d1">En los medios</h2>
 
       <div class="interview-grid">
-        <!-- Placeholder 1 -->
-        <div class="interview-card reveal">
+
+        <!-- 1. Tántalo's Check In — Instagram Reel -->
+        <div class="interview-card ig-card reveal" onclick="document.getElementById('ig-modal').classList.add('open')">
           <div class="interview-thumb">
-            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            <span class="coming-badge">Próximamente</span>
+            <div class="ig-bg"></div>
+            <div class="ig-center">
+              <i class="fab fa-instagram"></i>
+              <span>Tántalo Hotel</span>
+            </div>
+            <div class="ig-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
-            <p class="interview-source">Entrevista</p>
-            <p class="interview-title">Primera entrevista como artista solista</p>
-            <p class="interview-date">Próximamente · 2026</p>
+            <p class="interview-source">Instagram · Tántalo Hotel</p>
+            <p class="interview-title">Tántalo's Check In — Episodio 5: artistas y creativos comparten lo que los mueve</p>
+            <p class="interview-date">18 de abril, 2026</p>
           </div>
         </div>
 
-        <!-- Placeholder 2 -->
+        <!-- 2. Esto No Debería Estar Aquí Podcast — YouTube -->
         <div class="interview-card reveal d1">
-          <div class="interview-thumb">
-            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            <span class="coming-badge">Próximamente</span>
+          <div class="interview-thumb yt-player" data-yt="RVd2IyKrFgQ">
+            <img src="https://img.youtube.com/vi/RVd2IyKrFgQ/hqdefault.jpg" alt="Esto No Pod - La sabiduría de Val Monique" loading="lazy">
+            <div class="yt-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
-            <p class="interview-source">Podcast</p>
-            <p class="interview-title">Hablando de Latin Crossover y el proceso creativo</p>
-            <p class="interview-date">Próximamente · 2026</p>
+            <p class="interview-source">Podcast · Esto No Debería Estar Aquí</p>
+            <p class="interview-title">Episodio especial — La sabiduría de Val Monique</p>
+            <p class="interview-date">Mayo 2026</p>
           </div>
         </div>
 
-        <!-- Placeholder 3 -->
+        <!-- 3. ¡Viva el Drama! — Buena Vaina Podcast — YouTube -->
         <div class="interview-card reveal d2">
-          <div class="interview-thumb">
-            <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            <span class="coming-badge">Próximamente</span>
+          <div class="interview-thumb yt-player" data-yt="MzsiJMX-RBI">
+            <img src="https://img.youtube.com/vi/MzsiJMX-RBI/hqdefault.jpg" alt="¡Viva el drama! con Val Monique" loading="lazy">
+            <div class="yt-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
-            <p class="interview-source">Medios digitales</p>
-            <p class="interview-title">Val Monique: casi una década para llegar aquí</p>
-            <p class="interview-date">Próximamente · 2026</p>
+            <p class="interview-source">Podcast · Buena Vaina</p>
+            <p class="interview-title">¡Viva el drama! con Val Monique</p>
+            <p class="interview-date">Mayo 2026</p>
           </div>
         </div>
+
+        <!-- 4. Cover en Vivo "Mafiosa" — YouTube -->
+        <div class="interview-card reveal d3">
+          <div class="interview-thumb yt-player" data-yt="iAW7vOnHLaA">
+            <img src="https://img.youtube.com/vi/iAW7vOnHLaA/hqdefault.jpg" alt="Val Monique canta Mafiosa en vivo" loading="lazy">
+            <div class="yt-play-btn"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="interview-info">
+            <p class="interview-source">Presentación en vivo · KWC 2023</p>
+            <p class="interview-title">Cover — "Mafiosa" de Kathy Peluso</p>
+            <p class="interview-date">2023</p>
+          </div>
+        </div>
+
       </div>
 
       <p class="press-note reveal">
@@ -903,6 +991,21 @@
       </p>
     </div>
   </section>
+
+  <!-- Instagram modal -->
+  <div id="ig-modal" class="ig-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="ig-modal-inner">
+      <button class="ig-modal-close" onclick="document.getElementById('ig-modal').classList.remove('open')" aria-label="Cerrar">✕</button>
+      <iframe
+        src="https://www.instagram.com/reel/DXSjLieAfWW/embed/"
+        frameborder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+        scrolling="no"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
 
 
   <!-- ══════════════════════════════════════
@@ -997,6 +1100,24 @@
             navLinks.forEach(l => l.classList.toggle('active', l.dataset.s === id));
         });
       }, { rootMargin: '-28% 0px -65% 0px' }).observe(el);
+    });
+
+    /* ── YouTube click-to-play ──────────────────────────── */
+    document.querySelectorAll('.yt-player').forEach(player => {
+      player.addEventListener('click', () => {
+        const id = player.dataset.yt;
+        player.innerHTML = `<iframe
+          src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+          frameborder="0" allowfullscreen
+          allow="autoplay; encrypted-media"
+          style="width:100%;height:100%;display:block;border:none;"></iframe>`;
+        player.style.cursor = 'default';
+      });
+    });
+
+    /* ── Escape closes Instagram modal ─────────────────── */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.getElementById('ig-modal').classList.remove('open');
     });
   </script>
 
