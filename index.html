@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Val Monique — Quémame</title>
   <meta name="description" content="Quémame, el sencillo debut de Val Monique. Latin Crossover / Alt Latino. Escúchalo ahora en todas las plataformas.">
+  <link rel="canonical" href="https://valmonique.com/">
+  <meta name="theme-color" content="#06040f">
+
+  <!-- Preload del hero (mejora LCP) -->
+  <link rel="preload" as="image" href="assets/images/background.jpg">
+  <link rel="preload" as="image" href="assets/images/cover.jpg">
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -30,6 +40,46 @@
   <meta name="twitter:description" content="Quémame, el sencillo debut de Val Monique. Latin Crossover / Alt Latino. Escúchalo ahora en todas las plataformas.">
   <meta name="twitter:image" content="https://valmonique.com/assets/images/twitter-image.png">
   <meta name="twitter:image:alt" content="Val Monique — Quémame">
+
+  <!-- Schema.org / datos estructurados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MusicGroup",
+        "@id": "https://valmonique.com/#artist",
+        "name": "Val Monique",
+        "url": "https://valmonique.com/",
+        "image": "https://valmonique.com/assets/images/cover.jpg",
+        "genre": ["Latin Crossover", "Alt Latino", "Latin Pop"],
+        "description": "Cantautora e intérprete panameña radicada en Ciudad de Panamá. Su sonido, que ella denomina Latin Crossover, fusiona géneros latinos clásicos con estilos contemporáneos y nostálgicos del Y2K.",
+        "foundingLocation": {
+          "@type": "Place",
+          "name": "Ciudad de Panamá, Panamá"
+        },
+        "email": "hola@valmonique.com",
+        "sameAs": [
+          "https://www.tiktok.com/@valmonique",
+          "https://www.instagram.com/valm0nique",
+          "https://www.threads.net/@valm0nique",
+          "https://www.youtube.com/@ValMonique"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "@id": "https://valmonique.com/#quemame",
+        "name": "Quémame",
+        "byArtist": { "@id": "https://valmonique.com/#artist" },
+        "datePublished": "2026-05-29",
+        "inLanguage": "es",
+        "genre": ["Latin Pop", "R&B", "Funk"],
+        "image": "https://valmonique.com/assets/images/cover.jpg",
+        "url": "https://ditto.fm/quemame-val-monique"
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -825,7 +875,7 @@
 
     <div class="cover-wrap">
       <a href="https://ditto.fm/quemame-val-monique" target="_blank" rel="noopener" aria-label="Escuchar Quémame">
-        <img src="assets/images/cover.jpg" alt="Quémame — Val Monique" class="cover-art">
+        <img src="assets/images/cover.jpg" alt="Quémame — Val Monique" class="cover-art" width="900" height="900">
       </a>
     </div>
 
@@ -864,11 +914,11 @@
     </div>
 
     <div class="gallery-grid">
-      <div class="gi gi-1 reveal"><img src="assets/images/promo1.jpg" alt="Val Monique" loading="lazy"></div>
-      <div class="gi gi-2 reveal d1"><img src="assets/images/promo2.jpg" alt="Val Monique" loading="lazy"></div>
-      <div class="gi gi-3 reveal d2"><img src="assets/images/promo3.jpg" alt="Val Monique" loading="lazy"></div>
-      <div class="gi gi-4 reveal d3"><img src="assets/images/promo4.jpg" alt="Val Monique" loading="lazy"></div>
-      <div class="gi gi-5 reveal d4"><img src="assets/images/promo5.jpg" alt="Val Monique" loading="lazy"></div>
+      <div class="gi gi-1 reveal"><img src="assets/images/promo1.jpg" alt="Val Monique" loading="lazy" width="666" height="1000"></div>
+      <div class="gi gi-2 reveal d1"><img src="assets/images/promo2.jpg" alt="Val Monique" loading="lazy" width="666" height="1000"></div>
+      <div class="gi gi-3 reveal d2"><img src="assets/images/promo3.jpg" alt="Val Monique" loading="lazy" width="666" height="1000"></div>
+      <div class="gi gi-4 reveal d3"><img src="assets/images/promo4.jpg" alt="Val Monique" loading="lazy" width="666" height="1000"></div>
+      <div class="gi gi-5 reveal d4"><img src="assets/images/promo5.jpg" alt="Val Monique" loading="lazy" width="666" height="1000"></div>
     </div>
   </section>
 
@@ -893,7 +943,7 @@
         </div>
       </div>
       <div class="bio-sticky reveal-r">
-        <img src="assets/images/promo5.jpg" alt="Val Monique — foto de artista" class="bio-portrait">
+        <img src="assets/images/promo5.jpg" alt="Val Monique — foto de artista" class="bio-portrait" width="666" height="1000">
       </div>
     </div>
   </section>
@@ -1000,7 +1050,7 @@
       <div class="interview-grid">
 
         <!-- 1. Tántalo's Check In — Instagram Reel -->
-        <div class="interview-card ig-card reveal" onclick="openIg('https://www.instagram.com/reel/DXSjLieAfWW/embed/')">
+        <div class="interview-card ig-card reveal" role="button" tabindex="0" aria-label="Ver reel: Tántalo's Check In" onclick="openIg('https://www.instagram.com/reel/DXSjLieAfWW/embed/')">
           <div class="interview-thumb">
             <div class="ig-bg"></div>
             <div class="ig-center">
@@ -1019,7 +1069,7 @@
         <!-- 2. Esto No Debería Estar Aquí Podcast — YouTube -->
         <div class="interview-card reveal d1">
           <div class="interview-thumb yt-player" data-yt="RVd2IyKrFgQ">
-            <img src="https://img.youtube.com/vi/RVd2IyKrFgQ/hqdefault.jpg" alt="Esto No Pod - La sabiduría de Val Monique" loading="lazy">
+            <img src="https://img.youtube.com/vi/RVd2IyKrFgQ/hqdefault.jpg" alt="Esto No Pod - La sabiduría de Val Monique" loading="lazy" width="480" height="360">
             <div class="yt-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
@@ -1032,7 +1082,7 @@
         <!-- 3. ¡Viva el Drama! — Buena Vaina Podcast — YouTube -->
         <div class="interview-card reveal d2">
           <div class="interview-thumb yt-player" data-yt="MzsiJMX-RBI">
-            <img src="https://img.youtube.com/vi/MzsiJMX-RBI/hqdefault.jpg" alt="¡Viva el drama! con Val Monique" loading="lazy">
+            <img src="https://img.youtube.com/vi/MzsiJMX-RBI/hqdefault.jpg" alt="¡Viva el drama! con Val Monique" loading="lazy" width="480" height="360">
             <div class="yt-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
@@ -1063,7 +1113,7 @@
       <div class="live-grid">
 
         <!-- Revolution Fest — Instagram Reel -->
-        <div class="interview-card ig-card reveal" onclick="openIg('https://www.instagram.com/reel/DXh9PjCj-td/embed/')">
+        <div class="interview-card ig-card reveal" role="button" tabindex="0" aria-label="Ver reel: Entre Nos en Revolution Fest" onclick="openIg('https://www.instagram.com/reel/DXh9PjCj-td/embed/')">
           <div class="interview-thumb">
             <div class="ig-bg"></div>
             <div class="ig-center">
@@ -1082,7 +1132,7 @@
         <!-- KWC 2023 — Cover Mafiosa — YouTube -->
         <div class="interview-card reveal d1">
           <div class="interview-thumb yt-player" data-yt="iAW7vOnHLaA">
-            <img src="https://img.youtube.com/vi/iAW7vOnHLaA/hqdefault.jpg" alt="Val Monique canta Mafiosa en vivo — KWC 2023" loading="lazy">
+            <img src="https://img.youtube.com/vi/iAW7vOnHLaA/hqdefault.jpg" alt="Val Monique canta Mafiosa en vivo — KWC 2023" loading="lazy" width="480" height="360">
             <div class="yt-play-btn"><i class="fas fa-play"></i></div>
           </div>
           <div class="interview-info">
@@ -1239,6 +1289,13 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeIg(); });
+
+    /* Tarjetas IG accesibles por teclado (Enter / Espacio) */
+    document.querySelectorAll('.ig-card').forEach(card => {
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+      });
+    });
 
     /* ── Y2K MP3 player — arranca al primer toque ──────── */
     const bgMusic  = document.getElementById('bg-music');
