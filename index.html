@@ -805,7 +805,7 @@
       letter-spacing: 1.5px;
       color: var(--magenta);
       text-shadow: 0 0 7px rgba(204,30,160,0.50);
-      animation: ticker-loop 20s linear infinite;
+      animation: ticker-loop 32s linear infinite;
     }
     @keyframes ticker-loop {
       from { transform: translateX(0); }
@@ -1216,12 +1216,9 @@
   </footer>
 
 
-  <!-- Audio de fondo -->
-  <audio id="bg-music" src="assets/audio/quemame.mp3" loop preload="none"></audio>
-
   <!-- Y2K MP3 ticker — una línea, sin controles -->
   <div id="mp3-ticker" class="mp3-ticker" aria-hidden="true">
-    <span>♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp;&nbsp; ♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp;&nbsp;</span>
+    <span>♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp; ⏭ UP NEXT · la mala.mp3 · coming soon &nbsp;&nbsp;&nbsp; ♫ NOW PLAYING · quémame.mp3 · Val Monique &nbsp;&nbsp; ⏭ UP NEXT · la mala.mp3 · coming soon &nbsp;&nbsp;&nbsp;</span>
   </div>
 
   <script>
@@ -1296,24 +1293,6 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
       });
     });
-
-    /* ── Y2K MP3 player — arranca al primer toque ──────── */
-    const bgMusic  = document.getElementById('bg-music');
-    bgMusic.volume = 0.07;
-
-    function startAudio() {
-      bgMusic.play().catch(() => {});
-    }
-
-    /* Intenta reproducir al primer gesto del usuario */
-    ['click','scroll','touchstart','keydown'].forEach(evt =>
-      document.addEventListener(evt, function h() {
-        startAudio();
-        ['click','scroll','touchstart','keydown'].forEach(e =>
-          document.removeEventListener(e, h)
-        );
-      }, { once: true })
-    );
   </script>
 
 </body>
